@@ -38,4 +38,36 @@ As shown above functions are executed by typing the name of the function, specif
 
 **!** operator is used to indicate that the function being called is infact a macro and not a defined function
 
+## Compiling
 
+To compile the written rust code run the command:
+
+```bash
+rustc [name_of_rust_file].rs
+```
+
+## Creating Rust packages / applications
+
+Every project has a **main.rs** file that acts as the entry point to the project. The main.rs file also has a **main** function.
+
+When you want to create a rust application that could have multiple files and many dependencies we use the **cargo** command line tool to create for us a Rust project.
+
+Cargo is useful for managing our packages, building our applications, running them.
+
+To create a project run the following command:
+
+```bash
+cargo new [project_name]
+```
+
+This creates a new directory called [project_name] that will hold the Rust code that belong to your project.
+
+If you started a project that doesn’t use Cargo you can convert it to a project that does use Cargo. **Move the project code into the src directory** and **create an appropriate Cargo.toml** file.
+
+When using cargo to manage our projects we **NO LONGER BUILD OUR FILES USING THE RUSTC COMMAND**. We instead use the *cargo build* command to build the files in the src folder which will then create executables that will be stored in the *target* folder.
+
+To run the built project we run the file that has the **same name as our project** and is found in the **target/debug** folder.
+
+**cargo run** builds and executes the project for us i.e it combines the previos 2 steps
+
+**cargo check** is used to check whether your program is able to compile
