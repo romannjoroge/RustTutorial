@@ -1,8 +1,11 @@
 # Ignore all
 *
 
-# Unignore all with extensions
+# Unignore files with extension
 !*.*
 
-# Unignore all dirs
+# Unignore directories
 !*/
+
+# Ignore episode_2/target
+episode_2/target
