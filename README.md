@@ -43,6 +43,15 @@ As shown above functions are executed by typing the name of the function, specif
 1. **/** division operator.
 1. __*__ multiplication operator
 1. **%** modulo operator.
+1. **<** less than
+1. **>** greater than
+1. **<=** less than or equal
+1. **>=** greater than or equal
+1. **!=** not equal to
+1. **==** equal to
+1. **!** not operator
+1. **&&** and operator
+1. **||** or operator
 
 ## Compiling
 
@@ -143,3 +152,19 @@ io::stdin().read_line(&mut input).expect("failed to read");
 One way to type cast is to write the type immediately after a literal. For example to cast 255.0 to a f32 we would do: **255.0f32** or seperate the type with an underscore e.g **255_i32**
 
 The other method is to use the **as** keyword e.g **255 as i32**
+
+## Conditions and Control Flow
+
+You can create condition expressions using the condition operators or by calling a function that returns a boolean i.e any **expression that results in a boolen is a condition**.
+
+The **if**, **else if** and **else** operators are used for branching and control flow. An example:
+
+```rust
+if condition_1 {
+    // Do something
+} else if condtion_2 {
+    // Do something else
+} else {
+    // Do something
+}
+```
