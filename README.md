@@ -246,6 +246,8 @@ for grade in grades {
 
 ## Organizing Code Into Packages, Crates and Modules
 
+### Creating Modules
+
 Rust offers the module system which aims to assist programmers in organizing how they organize projects that could have multiple files and multiple modules.
 
 Rust compiles code in chunks called crates. Crates could be a single file that has code. There are 2 kinds of crates:
@@ -289,3 +291,32 @@ The src/garden/vegetable.rs file:
 #[derive(Debug)]
 pub struct Asparagus {}
 ```
+
+### Referencing Code In Modules
+
+If we want to be able to use functions or classes defined in modules we would need a way to tell Rust where the code is i.e we need to define a **path to the function**. There are 2 kinds of paths:
+
+1. **Absolute** paths where the path starts from the root crate.
+1. **Relative** paths where the path starts from an identifier in the file such as **self**, **super** e.t.c
+
+Let's take this case as an example
+
+```rust
+mod front_of_house {
+    mod hosting {
+        fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+```
+
+This brings an error since the hosting module is private. To be able to access the hosting module we make it public by adding the **pub** keyword to it's definition. An error is still brought since the add_to_waitlist method is still private. To fix this we add the **pub** keyword again. In Rust we need to make the module and its contents public if we want to be able to use them.
+
+Modules that are siblings are able to access each other even if they are not defined as public.
