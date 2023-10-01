@@ -9,3 +9,5 @@
 
 # Ignore episode_x/target
 episode_*/target
+
+quote_generator/target
