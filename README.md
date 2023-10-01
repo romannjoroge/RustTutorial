@@ -8,7 +8,7 @@ The youtube video used: [Rust Tutorial](https://www.youtube.com/watch?v=T_KrYLW4
 
 ## Introduction
 
-Rust is a language where you have to **specify the types of variables** or objects used in programs i.e the language can not guess for you the type of an entity.
+Rust is strongly typed i.e once a variable is created with a specific type you **cannot change the type of the variable at a later time**. The compiler is able to **guess the type of a variable** when it is defined or one can expliciltly state its type.
 
 Rust is a **compiled language** meaning you have to first compile it to an executable then run the executable. The beauty of this is that the executable can be run by *any machine even if it doesn't have Rust installed*. (Maybe this is how Rust is used in IoT things)
 
@@ -71,3 +71,19 @@ To run the built project we run the file that has the **same name as our project
 **cargo run** builds and executes the project for us i.e it combines the previos 2 steps
 
 **cargo check** is used to check whether your program is able to compile
+
+## Variables
+
+To define a variable we use the **let** keyword. For example:
+
+```rust
+let name = "Roman";
+let x: u32 = 4;
+```
+
+By default variables defined in Rust are **immutable**. To define a variable as mutable in Rust we add the **mut** keyword to the definition. For example:
+
+```rust
+let mut x:u32 = 4;
+x = 5; // This will work
+```
