@@ -7,5 +7,5 @@
 # Unignore directories
 !*/
 
-# Ignore episode_2/target
-episode_2/target
+# Ignore episode_x/target
+episode_*/target
