@@ -87,3 +87,21 @@ By default variables defined in Rust are **immutable**. To define a variable as 
 let mut x:u32 = 4;
 x = 5; // This will work
 ```
+
+To define constants in Rust we use the **const** keyword followed by the **name of the variable**, the **type** of the variable and the **value** of the variable. For example:
+
+```rust
+const MINUTES_IN_HOUR: u32 = 60;
+```
+
+## Data Types
+
+Some of the primitive data types include:
+
+1. **Signed integers** e.g **i32**, **i16** etc.
+1. **Unsigned integers** e.g **u32**, **u16** etc.
+1. **Floating point** numbers e.g **f32**, **f64**.
+1. **Booleans** which are either **true** or **false**.
+1. **Characters** (char) which are written using single quotes e.g 'a'.
+1. **Tuples** which are written using (). Tuples can store values of many different types e.g *let tup = ('a', 1, true)*. To *index values in the tuple we use a .* e.g tup.0 is the first element.
+1. **Arrays** which are written using []. The elements of an array are all of the same type. To *index arrays we use brackets e.g arr[0]* will take the first element in the arr array. Arrays in rust are not growable. By default arrays are not mutable unless they are defined to be i.e *let mut arr = [1, 2, 3]*. 
