@@ -105,4 +105,30 @@ Some of the primitive data types include:
 1. **Booleans** which are either **true** or **false**.
 1. **Characters** (char) which are written using single quotes e.g 'a'.
 1. **Tuples** which are written using (). Tuples can store values of many different types e.g *let tup = ('a', 1, true)*. To *index values in the tuple we use a .* e.g tup.0 is the first element.
-1. **Arrays** which are written using []. The elements of an array are all of the same type. To *index arrays we use brackets e.g arr[0]* will take the first element in the arr array. Arrays in rust are not growable. By default arrays are not mutable unless they are defined to be i.e *let mut arr = [1, 2, 3]*. 
+1. **Arrays** which are written using []. The elements of an array are all of the same type. To *index arrays we use brackets e.g arr[0]* will take the first element in the arr array. Arrays in rust are not growable. By default arrays are not mutable unless they are defined to be i.e *let mut arr = [1, 2, 3]*.
+
+## Importing
+
+Libraries in rust are known as **crates** and the functionalities that can be imported from the crate are known as **modules**.
+
+An example of a crate is **std** which has modules such as **io** that can be used for input and output. An example of how to import the io module is:
+
+```rust
+use std::io;
+```
+
+## Console Input
+
+We use the **io::read_line()** method to receive input from the terminal.
+
+The method returns accepts a **mutable reference** of the variable you want to store the read value in. The need of a mutable reference is that by **default functions take the copy of an arguement as a value**, in this case we **want to change the actual variable** so we need to **pass a reference**. By **default references are immutable** so we need to **define the reference as mutable**.
+
+The method returns a **Result** which is similar to a future. It is possible that the Result will be an error so we need to handle it. This is done using the **expect()** function.
+
+An example of how to get input is:
+
+```rust
+let mut input = String::new();
+
+io::stdin().read_line(&mut input).expect("failed to read");
+```
