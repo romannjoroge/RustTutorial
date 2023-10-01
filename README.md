@@ -32,11 +32,12 @@ fn main() {
 }
 ```
 
-As shown above functions are executed by typing the name of the function, specifying the arguements in parentheses then placing a semicolon. 
+As shown above functions are executed by typing the name of the function, specifying the arguements in parentheses then placing a semicolon.
 
 ## Operators
 
-**!** operator is used to indicate that the function being called is infact a macro and not a defined function
+1. **!** operator is used to indicate that the function being called is infact a macro and not a defined function
+1. **::** path seperator operator is used to allow one to access the method of an object or to specify the module of a crate
 
 ## Compiling
 
