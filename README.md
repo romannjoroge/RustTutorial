@@ -34,6 +34,26 @@ fn main() {
 
 As shown above functions are executed by typing the name of the function, specifying the arguements in parentheses then placing a semicolon.
 
+To specify the parameters for a function you write the name of the parameter and indicate the type. For example:
+
+```rust
+fn add_2_numbers(x: i32, y: i32) -> i32{
+    println!("The sum of {} and {} is {}", x, y, x + y);
+}
+```
+
+The difference between a statement and an expression is that an expression evaluates something and can return a result while a statement does not evaluate anything i.e it defines something. For example **let x = 20** is a statement because it does not return anything while **x + 20** is an expression because it returns something.
+
+To return a value from a function use the **return** keyword. When creating a function that returns a value you have to specify the type of the returned value.
+
+```rust
+fn add_2_numbers(x: i32, y: i32) {
+    return x + y;
+    // can also return by just writing the expression without the return keyword
+    // x + y
+}
+```
+
 ## Operators
 
 1. **!** operator is used to indicate that the function being called is infact a macro and not a defined function
@@ -52,6 +72,7 @@ As shown above functions are executed by typing the name of the function, specif
 1. **!** not operator
 1. **&&** and operator
 1. **||** or operator
+1. **->** return operator that is used to indicate the return type of a function
 
 ## Compiling
 
