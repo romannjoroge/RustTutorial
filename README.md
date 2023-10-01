@@ -189,3 +189,57 @@ if condition_1 {
     // Do something
 }
 ```
+
+## Looping
+
+One way to loop is by using the **loop** keyword. This tells Rust to loop the code in the loop body **forever until it is told to stop**. We tell the loop to stop or *break out of the loop* using the **break** keyword. We can also skip the current iteration and go to the next one using the **continue** keyword. For example:
+
+```rust
+let mut i = 1;
+
+// Looping with the loop keyword
+loop {
+    if i < age {
+        println!("Are you {}", i);
+        i = i + 1; // Remember to increment control variable
+    } else if i == age { // break condition
+        println!("Are you {}", i);
+        println!("Hooray!");
+        break
+    } else {
+        break
+    }
+}
+```
+
+If the loop was calculating a value that needs to be returned you can place the value to be returned after the break statement. For example:
+
+```rust
+let mut counter = 0;
+
+let result = loop {
+    counter += 1;
+    if counter == 10 {
+        break counter * 2;
+    }
+}
+```
+
+loop is useful when you want to repeat an action until a certain thing happens but you do not know how many iterations till the desired event or condition occurs.
+
+If you want to loop while a condition is true you could use the loop keyword but **while** has been built to achieve this goal. An example of a while loop:
+
+```rust
+while remaining_income > 500.0 {
+    remaining_income -= 500.0;
+    println!("kshs 500 has been removed for tax, balance is {}", remaining_income);
+}
+```
+
+If you want to loop through a collection of items you could use the while loop but the **for** loop was built for this purpose. For example:
+
+```rust
+for grade in grades {
+    summed_grades += grade;
+}
+```
