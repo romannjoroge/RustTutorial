@@ -9,5 +9,10 @@ fn main() {
     println!("y is {}", y);
 
     y = 6;
-    println!("y is {}", y)
+    println!("y is {}", y);
+
+    // Constants
+    const MINUTES_IN_HOUR:u32 = 60;
+
+    println!("There are {} minutes in an hour", MINUTES_IN_HOUR);
 }
