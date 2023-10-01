@@ -137,3 +137,9 @@ let mut input = String::new();
 
 io::stdin().read_line(&mut input).expect("failed to read");
 ```
+
+## Type Casting
+
+One way to type cast is to write the type immediately after a literal. For example to cast 255.0 to a f32 we would do: **255.0f32** or seperate the type with an underscore e.g **255_i32**
+
+The other method is to use the **as** keyword e.g **255 as i32**
