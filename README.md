@@ -243,3 +243,49 @@ for grade in grades {
     summed_grades += grade;
 }
 ```
+
+## Organizing Code Into Packages, Crates and Modules
+
+Rust offers the module system which aims to assist programmers in organizing how they organize projects that could have multiple files and multiple modules.
+
+Rust compiles code in chunks called crates. Crates could be a single file that has code. There are 2 kinds of crates:
+
+1. **Binary Crates** are crates that can be compiled into an executable since they contain a main function.
+1. **Library Crates** are not intended to be executed when compiled but provide functionality that can be used in other projects. They do not contain a main function.
+
+A package is a collection of crates that have a Cargo.toml file to describe how to build the package. Packages can have **at most one library crate**.
+
+When creating a package Cargo assumes that the **src/main.rs file is the crate root** of the binary crate with the same name as the package. At the same time if the package contains a **src/lib.rs file Cargo assumes that the package contains a library crate** with the same name as the package and that the file is its root. A package can have **multiple binary crates by placing them in the src/bin** directory.
+
+To use modules in Rust we first declare them in the crate root e.g src/main.rs. We use the **mod** keyword to declare a module. Declared modules are private to its parent by default so to make it public we define it as public using the **pub mod** keywords. We then define what we want to be accessible as public in the module using the **pub** keyword.
+
+If I would want to create a garden module I would add the declaration for it in the crate root which could be either src/main.rs or src/lib.rs. The definition could look like this **mod garden**. Rust would then look for where the code defining the module is. It first looks for a **src/gardern.rs** file, if that is not there it looks for a **src/garden/mod.rs** file.
+
+The defined module can also define its own submodule. If I wanted to define a vegetable submodule for the garden module I would. Move the garden module declaration to the **src/garden/mod.rs** location (*this is optional but in my opinion makes things abit more orderly*). I then create the declaration for the vegetable submodule i.e **mod vegetable**. Rust would then look for the file defining the module at **src/garden/vegetable.rs**. If that is not there it looks for the file at **src/garden/vegetable/mod.rs**.
+
+Once the module is attached to the crate you can reference it either with the path. For example if we wanted to access an aspurugus in the vegetables submodule we would do **crate::garden::vegetable::aspurugus**. To avoid having to write the long path all the time we can use the use keyword e.g **use crate::garden::vegetable::aspurugus**. We would then be able to type aspurugus when we want to access it. The code to do this looks like this:
+
+The src/main.rs file:
+
+```rust
+use crate::garden::vegetable::Aspurugus;
+
+pub mod garden;
+
+fn main() {
+    let plant = Aspurugus {};
+}
+```
+
+The src/garden/mod.rs file:
+
+```rust
+pub mod vegatable;
+```
+
+The src/garden/vegetable.rs file:
+
+```rust
+#[derive(Debug)]
+pub struct Asparagus {}
+```
