@@ -320,3 +320,117 @@ pub fn eat_at_restaurant() {
 This brings an error since the hosting module is private. To be able to access the hosting module we make it public by adding the **pub** keyword to it's definition. An error is still brought since the add_to_waitlist method is still private. To fix this we add the **pub** keyword again. In Rust we need to make the module and its contents public if we want to be able to use them.
 
 Modules that are siblings are able to access each other even if they are not defined as public.
+
+## Ownership
+
+This is how Rust ensures memory safety without having a garbage collector i.e avoiding memory leaks.
+
+The stack is a part of the memory that the program has access to during run time that stores elements in a **LIFO** fashion. The items stored on the stack **must be of a known and fixed size**. Items with unkown size are **stored on the heap**.
+
+Storing data on the heap is known as **allocating data**. When you want to allocate some data you tell Rust how much data you want then it will look for a space big enough to fit the data on the heap. Once the space is found it returns a **pointer** to the space which you will use when you want to access the data. **Allocating data on the heap is slower than pushing data on the stack**. *Because pointers are of a fixed size they can be stored on a stack*.
+
+Keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
+
+These are the ownership rules:
+
+1. Each value in Rust has an owner.
+1. There can only be one owner at a time.
+1. When the owner is out of scopped the value is dropped.
+
+There's a difference between a **string literal** and a **String**. String is used in cases where we do not know how big the string will be at run time e.g when receiving input from user. You can create a **String from a string** by doing **String::from(literal)**. string literals are **immutable** while String is **mutable**.
+
+How Rust deals with the memory allocated to String or other similar types is that once the variable goes out of scope **the memory allocated to it is deallocated**.
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+```
+
+When we do this no new string is allocated in the heap, what actually happens is that the **String pointer stored in the stack is copied from s1 to s2** making them all point to the same string in the heap.
+
+Also when we do this **Rust ignores s1 making it unusable**. It does this so as to avoid a case where s1 and s2 both try to unallocate their memory that would cause an issue. **s1 was moved to s2**.
+
+To create a deep copy of the string we use the **clone** method i.e:
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1.clone();
+```
+
+In this way s1 can still be used and s1 and s2 have pointers that point to different areas in the heap.
+
+When passing values to functions the same logic applies where some types such as String are moved while others such as i32 are copied. Here's an example:
+
+```rust
+fn main() {
+    let s = String::from("hello");  // s comes into scope
+
+    takes_ownership(s);             // s's value moves into the function...
+                                    // ... and so is no longer valid here
+
+    let x = 5;                      // x comes into scope
+
+    makes_copy(x);                  // x would move into the function,
+                                    // but i32 is Copy, so it's okay to still
+                                    // use x afterward
+
+} // Here, x goes out of scope, then s. But because s's value was moved, nothing
+  // special happens.
+
+fn takes_ownership(some_string: String) { // some_string comes into scope
+    println!("{}", some_string);
+} // Here, some_string goes out of scope and `drop` is called. The backing
+  // memory is freed.
+
+fn makes_copy(some_integer: i32) { // some_integer comes into scope
+    println!("{}", some_integer);
+} // Here, some_integer goes out of scope. Nothing special happens.
+```
+
+When values go out of scope one of 2 things happen; they are either **Copy** or **Drop**. Values that are **Copy** can still be used after they have gone out of scoped because a copy can be created while values that are **Drop** bring a compile time error if used afterwards.
+
+When a function returns it gives ownership of whatever it's returned to the variable storing the returned value.
+
+But returning a value all the time just to return the ownership can become tedious. To counter this Rust allows us to pass something like a string as an arguement but the function will not take ownership of the passed value. This feature is called **references**
+
+### References
+
+To pass an arguement to a function without passing the ownership of the arguement to the function we use **references** that are indicated with the **&** character. An example is:
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1);
+
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+When the function completes executing the passed reference still goes out of scope but because the **reference does not own the data it is pointing to the pointed data is not dropped**. This is called **borrowing**.
+
+In the current implementation we cannot change the string passed because by default **references in Rust are immutable**. To be able to change the data in the passed reference we define the reference parameter as mutable and make sure that the string the reference comes from is also mutable. For example:
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+Mutable references have one big restriction: **if you have a mutable reference to a value, you can have no other references to that value, even if they are immutable.**.This is done to prevent the chance of have race conditions.
+
+Note that a reference’s scope starts from where it is introduced and continues through the last time that reference is used.
+
+### Slices
+
+Rust has slices that allow you to get a smaller portion of an array or String. 
