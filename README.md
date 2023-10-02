@@ -433,4 +433,4 @@ Note that a reference’s scope starts from where it is introduced and continues
 
 ### Slices
 
-Rust has slices that allow you to get a smaller portion of an array or String. 
+Rust has slices that allow you to get a smaller portion of an array or String.

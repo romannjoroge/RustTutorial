@@ -1,7 +1,12 @@
 pub mod typing;
+pub mod crud;
 
 use typing::title;
 use typing::get_input;
+use crud::create;
+use crud::read;
+use crud::update;
+use crud::delete;
 
 fn main() {
     // Print title of app
@@ -19,9 +24,31 @@ fn main() {
     println!("4) Read A Quote");
     println!("");
 
-    // Get user input
-    let input: String = get_input::get_input();
-    println!("{}", input);
+    let mut correct_option = false;
+    // Repeat until correct option is chosen
+    while correct_option == false {
+        // Get user input
+        let input: String = get_input::get_input();
 
-    // Do action depending
+        // Trim input and make it lower case
+        let trim_input = input.trim().to_ascii_lowercase();
+
+        // Do action depending on input
+        if trim_input == "1" {
+            create::create_quote();
+            correct_option = true;
+        } else if trim_input == "2" {
+            update::update_quote();
+            correct_option = true;
+        } else if trim_input == "3" {
+            delete::delete_quote();
+            correct_option = true;
+        } else if trim_input == "4" {
+            read::read_quote();
+            correct_option = true;
+        } else {
+            println!("Invalid Option! Try Again");
+            correct_option = false;
+        }
+    }
 }
